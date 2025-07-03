@@ -1,4 +1,5 @@
 import express from 'express';
+import cors from "cors"; 
 import bodyParser from 'body-parser';
 import type { Request, Response } from 'express';
 import colors from 'colors';
@@ -12,6 +13,9 @@ app.use(bodyParser.json());
 
 // Logs
 app.use(morgan("dev"));
+
+// CORS setup
+app.use(cors()); 
 
 // Data object to simulate a database
 const commentsByPostId = {}; 

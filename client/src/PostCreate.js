@@ -13,10 +13,12 @@ const PostCreate = () => {
             title, 
             content
         }).then((response) => {
-            console.log("Post created successfully:", response.data);
+            console.log("Post created successfully: ", response.data);
             setTitle(""); // Clear the title input
             setContent(""); // Clear the content input
-        })
+        }).catch((error) => {
+            console.error("Error creating post: ", error);
+        });
     }
 
     return (
