@@ -4,7 +4,6 @@ import bodyParser from 'body-parser';
 import type { Request, Response } from 'express';
 import colors from 'colors';
 import morgan from 'morgan';
-import { randomBytes } from 'crypto'; 
 import axios from 'axios';
 
 // Initialize the Express app
