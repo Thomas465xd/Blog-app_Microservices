@@ -4,6 +4,7 @@ import bodyParser from 'body-parser';
 import type { Request, Response } from 'express';
 import colors from 'colors';
 import morgan from 'morgan';
+import axios from 'axios';
 
 const app = express(); 
 
@@ -39,13 +40,12 @@ const posts: Record<string, {
     comments: { id: string; content: string; status: "pending" | "approved" | "rejected" }[];
 }> = {};
 
-app.get("/posts", (req: Request, res: Response) => {
-    res.send(posts) // just return the in-memory posts object
-})
+type Event = {
+    type: "PostCreated" | "CommentCreated" | "CommentUpdated";
+    data: Object
+}
 
-app.post("/events", (req: Request, res: Response) => {
-    const { type, data } = req.body; 
-
+const handleEvent = (type, data) => {
     //? Handle a "PostCreated" event
     if(type === "PostCreated") {
         const { id, title, content } = data; 
@@ -54,7 +54,7 @@ app.post("/events", (req: Request, res: Response) => {
         posts[id] = { id, title, content, comments: [] }; 
 
         // Send back a response
-        return res.status(200).json({ message: "PostCreated Event successfully processed" })
+        //return res.status(200).json({ message: "PostCreated Event successfully processed" })
     }
 
     //? Handle a "CommentCreated" Event
@@ -68,7 +68,7 @@ app.post("/events", (req: Request, res: Response) => {
         post.comments.push({ id, content, status })
 
         // Send back a response
-        return res.status(200).json({ message: "CommentCreated Event successfully processed" })
+        //return res.status(200).json({ message: "CommentCreated Event successfully processed" })
     }
 
     //? Handle a "CommentUpdated" Event
@@ -86,8 +86,19 @@ app.post("/events", (req: Request, res: Response) => {
         comment.content = content; 
 
         // Send back a response
-        return res.status(200).json({ message: "CommentCreated Event successfully processed" })
+        //return res.status(200).json({ message: "CommentCreated Event successfully processed" })
     }
+}
+
+app.get("/posts", (req: Request, res: Response) => {
+    res.send(posts) // just return the in-memory posts object
+})
+
+app.post("/events", (req: Request, res: Response) => {
+    const { type, data } = req.body as Event; 
+
+    // Call helper function
+    handleEvent(type, data)
 
     // Send back a response
     return res.send({message: "Event Not Used"})
@@ -95,6 +106,19 @@ app.post("/events", (req: Request, res: Response) => {
 
 
 // Set up 
-app.listen(4002, () => {
+app.listen(4002, async () => {
     console.log( colors.blue.bold(`Query Service Running on port: 4002`))
+
+    try {
+        const res = await axios.get("http://localhost:4005/events");
+    
+        for (let event of res.data) {
+            console.log("Processing event:", colors.rainbow(`${event.type}`));
+    
+            //! Handle all unprocessed events, this will save the info
+            handleEvent(event.type, event.data);
+        }
+    } catch (error) {
+        console.log(error.message);
+    }
 })

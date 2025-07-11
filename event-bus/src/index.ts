@@ -26,9 +26,22 @@ const services = [
     { name: "moderation", url: "http://localhost:4003/events"}
 ];
 
+// Event Type
+type Event = {
+    type: string; 
+    data: Object
+}
+
+// Data object to store all incoming Events
+const events: Event[] = []; 
+
 // Event bus endpoint to receive events
 app.post("/events", async (req: Request, res: Response) => {
     const event = req.body;
+
+    //! Store Incoming Event into the events array
+    events.push(event);
+
     const errors: { service: string, error: string }[] = [];
     const successes: string[] = [];
 
@@ -62,6 +75,12 @@ app.post("/events", async (req: Request, res: Response) => {
             successes
         });
     }
+});
+
+app.get("/events", (req: Request, res: Response) => {
+    console.table(events)
+
+    res.send(events); 
 });
 
 app.listen(4005, () => {
