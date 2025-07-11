@@ -48,6 +48,7 @@ app.post("/posts", async (req: Request, res: Response) => {
     })
 
     res.status(201).send(posts[id]); 
+    return
 }); 
 
 // Receiving Events from the event bus

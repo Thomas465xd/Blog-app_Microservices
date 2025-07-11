@@ -23,6 +23,7 @@ const services = [
     { name: "posts", url: "http://localhost:4000/events" },
     { name: "comments", url: "http://localhost:4001/events" },
     { name: "query", url: "http://localhost:4002/events" },
+    { name: "moderation", url: "http://localhost:4003/events"}
 ];
 
 // Event bus endpoint to receive events

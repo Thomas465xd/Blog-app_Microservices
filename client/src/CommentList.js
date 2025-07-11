@@ -16,6 +16,7 @@ const CommentList = ({ comments }) => {
      */
 
     //console.log(posts); 
+    console.log(comments)
 
     const renderedComments = Object.values(comments).map((comment) => {
         return (

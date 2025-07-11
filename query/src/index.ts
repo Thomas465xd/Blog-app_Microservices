@@ -36,7 +36,7 @@ const posts: Record<string, {
     id: string;
     title: string;
     content: string;
-    comments: { id: string; content: string }[];
+    comments: { id: string; content: string; status: "pending" | "approved" | "rejected" }[];
 }> = {};
 
 app.get("/posts", (req: Request, res: Response) => {
@@ -46,29 +46,51 @@ app.get("/posts", (req: Request, res: Response) => {
 app.post("/events", (req: Request, res: Response) => {
     const { type, data } = req.body; 
 
-    // Handle a "PostCreated" event
+    //? Handle a "PostCreated" event
     if(type === "PostCreated") {
         const { id, title, content } = data; 
 
         // Create a new post entry in the `posts` object with an empty comments array
         posts[id] = { id, title, content, comments: [] }; 
+
+        // Send back a response
+        return res.status(200).json({ message: "PostCreated Event successfully processed" })
     }
 
-    // Handle a "CommentCreated" Event
+    //? Handle a "CommentCreated" Event
     if(type === "CommentCreated") {
-        const { id, content, postId } = data; 
+        const { id, content, postId, status } = data; 
 
         // Get the post this comment belongs to
         const post = posts[postId]; 
 
         // Add the new comment to the post's comments array
-        post.comments.push({ id, content })
+        post.comments.push({ id, content, status })
+
+        // Send back a response
+        return res.status(200).json({ message: "CommentCreated Event successfully processed" })
     }
 
-    //console.log(posts)
+    //? Handle a "CommentUpdated" Event
+    if(type === "CommentUpdated") {
+        // Destructure Event data
+        const { id, content, postId, status } = data; 
+
+        // Get the comment related post
+        const post = posts[postId]; 
+        const comment = post.comments.find(comment => {
+            return comment.id === id
+        })
+
+        comment.status = status; 
+        comment.content = content; 
+
+        // Send back a response
+        return res.status(200).json({ message: "CommentCreated Event successfully processed" })
+    }
 
     // Send back a response
-    res.send({})
+    return res.send({message: "Event Not Used"})
 })
 
 
