@@ -1,8 +1,6 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
-
-const CommentList = ({ postId }) => {
+const CommentList = ({ comments }) => {
     // State to hold posts
+    /**
     const [comments, setComments] = useState({});
 
     const fetchComments = async () => {
@@ -15,6 +13,7 @@ const CommentList = ({ postId }) => {
         // Fetch posts when the component mounts
         fetchComments(); 
     }, []); 
+     */
 
     //console.log(posts); 
 

@@ -65,7 +65,7 @@ app.post("/events", (req: Request, res: Response) => {
         post.comments.push({ id, content })
     }
 
-    console.log(posts)
+    //console.log(posts)
 
     // Send back a response
     res.send({})
