@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: posts-depl
+spec:
+  replicas: 1
+  selector: 
+    matchLabels:
+      app: posts # Search for a pod with a posts label
+  template:
+    metadata:
+      labels:
+        app: posts # Asign a label (equal to the one in matchLabels) to the pod
+    spec:
+      containers:
+        - name: posts 
+          image: microservices:posts
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "250m"
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
