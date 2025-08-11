@@ -36,7 +36,8 @@ app.post("/posts", async (req: Request, res: Response) => {
         content
     }; 
 
-    await axios.post("http://localhost:4005/events", {
+    // Instead of making a request to localhost, we make a request to the event bus service 
+    await axios.post("http://event-bus-cip-srv:4005/events", {
         type: "PostCreated", 
         data: {
             id, 

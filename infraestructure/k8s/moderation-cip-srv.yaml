@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: moderation-cip-srv
+spec:
+  type: ClusterIP
+  selector:
+    app: moderation
+  ports:
+  - name: moderation 
+    protocol: TCP
+    port: 4003 # Port of the service
+    targetPort: 4003 # Port of the "moderation service". They can also not be equal

@@ -14,11 +14,11 @@ spec:
     spec:
       containers:
         - name: posts 
-          image: microservices:posts
+          image: thomastheprogrammer/posts-service:dev
           resources:
             requests:
-              memory: "64Mi"
+              memory: "256Mi"
               cpu: "250m"
             limits:
-              memory: "128Mi"
+              memory: "512Mi"
               cpu: "500m"

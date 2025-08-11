@@ -20,10 +20,10 @@ app.use(cors());
 
 // Data object of services 
 const services = [
-    { name: "posts", url: "http://localhost:4000/events" },
-    { name: "comments", url: "http://localhost:4001/events" },
-    { name: "query", url: "http://localhost:4002/events" },
-    { name: "moderation", url: "http://localhost:4003/events"}
+    { name: "posts", url: "http://posts-cip-srv:4000/events" },
+    { name: "comments", url: "http://comments-cip-srv:4001/events" },
+    { name: "query", url: "http://query-cip-srv:4002/events" },
+    { name: "moderation", url: "http://moderation-cip-srv:4003/events"}
 ];
 
 // Event Type

@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: comments-cip-srv
+spec:
+  type: ClusterIP
+  selector:
+    app: comments
+  ports:
+  - name: comments 
+    protocol: TCP
+    port: 4001 # Port of the service
+    targetPort: 4001 # Port of the "comments service". They can also not be equal

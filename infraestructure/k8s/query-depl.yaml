@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: event-bus-depl
+  name: query-depl
 spec:
   replicas: 1
   selector: 
     matchLabels:
-      app: event-bus # Search for a pod with a event-bus label
+      app: query # Search for a pod with a query label
   template:
     metadata:
       labels:
-        app: event-bus # Asign a label (equal to the one in matchLabels) to the pod
+        app: query # Asign a label (equal to the one in matchLabels) to the pod
     spec:
       containers:
-        - name: event-bus 
-          image: microservices/event-bus:v1
+        - name: query 
+          image: thomastheprogrammer/query-service:dev
           resources:
             requests:
               memory: "256Mi"
