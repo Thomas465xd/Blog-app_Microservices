@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: event-bus 
-          image: microservices/event-bus:v1
+          image: thomastheprogrammer/event-bus:dev
           resources:
             requests:
               memory: "256Mi"

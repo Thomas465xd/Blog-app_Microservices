@@ -10,7 +10,8 @@ const CommentCreate = ({ postId }) => {
     const handleSubmit = async (e) => {
         e.preventDefault(); 
 
-        await axios.post(`http://localhost:4001/posts/${postId}/comments`, {
+        // Before setting up kubernetes, the URL was: await axios.post(`http://localhost:4001/posts/${postId}/comments`
+        await axios.post(`http://posts.com/posts/${postId}/comments`, {
             content
         }).then((response) => {
             console.log("Comment created Successfully: ", response.data)
