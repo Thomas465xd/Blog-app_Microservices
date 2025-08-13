@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: client-depl
+spec:
+  replicas: 1
+  selector: 
+    matchLabels:
+      app: client # Search for a pod with a client label
+  template:
+    metadata:
+      labels:
+        app: client # Asign a label (equal to the one in matchLabels) to the pod
+    spec:
+      containers:
+        - name: client 
+          image: thomastheprogrammer/client-service:dev
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "250m"
+            limits:
+              memory: "512Mi"
+              cpu: "500m"

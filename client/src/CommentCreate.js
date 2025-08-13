@@ -11,7 +11,7 @@ const CommentCreate = ({ postId }) => {
         e.preventDefault(); 
 
         // Before setting up kubernetes, the URL was: await axios.post(`http://localhost:4001/posts/${postId}/comments`
-        await axios.post(`http://posts.com/posts/${postId}/comments`, {
+        await axios.post(`https://posts.com/posts/${postId}/comments`, {
             content
         }).then((response) => {
             console.log("Comment created Successfully: ", response.data)
@@ -19,7 +19,7 @@ const CommentCreate = ({ postId }) => {
             console.error("Error creating comment: ", error);
         });
 
-        setContent(""); // Clear the content input
+        setContent(""); // Clear the content input in the state
     }
 
     return (

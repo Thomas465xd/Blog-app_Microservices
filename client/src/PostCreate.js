@@ -9,7 +9,7 @@ const PostCreate = () => {
         e.preventDefault(); 
 
         //console.log("Creating post with title:", title, "and content:", content); 
-        await axios.post("http://posts.com/posts", {
+        await axios.post("https://posts.com/posts/create", {
             title, 
             content
         }).then((response) => {

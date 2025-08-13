@@ -1,0 +1,78 @@
+apiVersion: skaffold/v4beta13
+kind: Config
+build:
+  artifacts:
+    - image: thomastheprogrammer/client-service #? client service
+      context: client
+      sync:
+        manual:
+          - src: src/**/*.js
+            dest: .
+      docker:
+        dockerfile: Dockerfile
+    - image: thomastheprogrammer/posts-service #? posts service
+      context: posts
+      sync:
+        manual:
+          - src: src/**/*.ts
+            dest: .
+      docker:
+        dockerfile: Dockerfile
+    - image: thomastheprogrammer/comments-service #? comments service
+      context: comments
+      sync:
+        manual:
+          - src: src/**/*.ts
+            dest: .
+      docker:
+        dockerfile: Dockerfile
+    - image: thomastheprogrammer/query-service #? query service
+      context: query
+      sync:
+        manual:
+          - src: src/**/*.ts
+            dest: .
+      docker:
+        dockerfile: Dockerfile
+    - image: thomastheprogrammer/moderation-service #? moderation service
+      context: moderation
+      sync:
+        manual:
+          - src: src/**/*.ts
+            dest: .
+      docker:
+        dockerfile: Dockerfile
+    - image: thomastheprogrammer/event-bus #! event bus
+      context: event-bus
+      sync:
+        manual:
+          - src: src/**/*.ts
+            dest: .
+      docker:
+        dockerfile: Dockerfile
+  local:
+    push: false
+manifests:
+  rawYaml:
+    - infraestructure/k8s/*
+deploy:
+  kubectl: {}
+
+#apiVersion: skaffold/v2alpha3
+#kind: Config 
+#deploy:
+#  kubectl:
+#    remoteManifests:
+#      - infraestructure/k8s/*
+#build: 
+#  local: 
+#    push: false
+#  artifacts:
+#    - image: thomastheprogrammer/client-service
+#      context: client
+#      docker: 
+#        dockerfile: Dockerfile
+#      sync:
+#        manual:
+#          - dest: .
+#            src: "src/**/*.js"

@@ -21,11 +21,12 @@ app.use(cors());
 // Data object to simulate a database
 const posts = {}; 
 
+//! Not used anymore, but kept for reference
 app.get("/posts", (req: Request, res: Response) => {
     res.send(posts); 
 }); 
 
-app.post("/posts", async (req: Request, res: Response) => {
+app.post("/posts/create", async (req: Request, res: Response) => {
     const id = randomBytes(4).toString("hex"); 
 
     const { title, content } = req.body; 
